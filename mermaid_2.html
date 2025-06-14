@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gideon - Fluxograma de Arquitetura (Híbrida)</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            background-color: #000000;
+            font-family: sans-serif;
+            color: #ffffff; 
+        }
+        
+        .mermaid {
+            max-width: 98vw;
+            margin: 20px auto;
+        }
+
+        /* ----- CSS para aplicar ícones aos nós do Mermaid ----- */
+        
+        .icon-node-class-name div { 
+            display: flex;
+            align-items: center;
+            height: 100%;
+            text-align: left;
+        }
+        
+        .dbIcon div {
+            background-image: url('./database-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .s3Icon div {
+            background-image: url('./aws-s3-simple-storage-service.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        .sagemakerIcon div {
+            background-image: url('./Arch_Amazon-SageMaker_32.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .predIcon div {
+             background-image: url('./redis-original-wordmark.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .quicksightIcon div {
+            background-image: url('./Arch_Amazon-QuickSight_32.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        .userIcon div {
+            background-image: url('./user-hands-svgrepo-com_f.svg');
+            background-size: 28px 28px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .monitorIcon div {
+            background-image: url('./aws-cloudwatch-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        .orchIcon div {
+            background-image: url('./airflow-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mermaid">
+        graph LR
+            %% ---- Definição da classe base para os nós ----
+            classDef iconNode fill:#1a1a1a,stroke:#ca4ad1,stroke-width:2px,padding:15px,min-width:230px
+            
+            %% ---- NOVO: Subgrafo para o ambiente do cliente (fora da AWS) ----
+            subgraph "Ambiente do Cliente (On-Premise ou Outra Nuvem)"
+                A["<b>A: Fontes de Dados</b><br>(CRM, ERP, DBs, Dados Públicos)"]:::dbIcon
+            end
+
+            %% ---- SUBGRAFO PRINCIPAL DA PLATAFORMA ----
+            subgraph "Nuvem AWS - Plataforma Gideon"
+                direction LR
+                subgraph "Data Lake"
+                    B["B: S3<br>(Raw)"]:::s3Icon
+                    C["C: S3<br>(Processed)"]:::s3Icon
+                    D["D: S3<br>(Curated)"]:::s3Icon
+                end
+                subgraph "Machine Learning"
+                    E["<b>E: Treinamento</b><br>(SageMaker)"]:::sagemakerIcon
+                    F["F: Registro<br>(SageMaker)"]:::sagemakerIcon
+                    G["<b>G: Inferência</b><br>(SageMaker)"]:::sagemakerIcon
+                end
+                 subgraph "Resultados & Acesso"
+                    H{"H: Predições<br>(Redis, S3)"}:::predIcon
+                    I["<b>I: Dashboards</b><br>(QuickSight)"]:::quicksightIcon
+                end
+                J["<b>J: Usuários Finais</b><br>(Gestores)"]:::userIcon
+            end
+
+            %% ---- SUBGRAFO SECUNDÁRIO DE OPERAÇÕES ----
+            subgraph "Gerenciamento & Operações"
+                direction TB
+                L["<b>L: Orquestração</b><br>(Airflow / Step Functions)"]:::orchIcon
+                K["<b>K: Monitoramento</b><br>(CloudWatch)"]:::monitorIcon
+            end
+
+            %% Aplica a classe base a todos os nós para garantir o tamanho
+            class A,B,C,D,E,F,G,H,I,J,K,L iconNode
+
+            %% ---- CONEXÕES DO FLUXO PRINCIPAL ----
+            A -- "<b>Ingestão Segura</b><br>(VPN/Direct Connect)" --> B
+            B -- "ETL" --> C
+            C -- "Features" --> D
+            D -- "Dados de Treino" --> E
+            E -- "Modelo" --> F
+            F -- "Deploy" --> G
+            D -- "Dados<br>para Inferência" --> G
+            G -- "Salva<br>Predições" --> H
+            H -- "Resultados" --> I
+            C -- "Dados Consolidados" --> I
+            I -- "Insights" --> J
+            J -- "Feedback" --> E
+
+            %% ---- CONEXÕES DE ORQUESTRAÇÃO E MONITORAMENTO ----
+            L -- "Orquestra Processos" --> B
+            K -- "Monitora Performance" --> G
+    </div>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#000000',
+                clusterBkg: '#532c49',
+                clusterBorder: '#ca4ad1',
+                nodeBorder: '#ca4ad1',
+                /*mainBkg: '#1a1a1a',*/
+                mainBkg: '#532c49',
+                lineColor: '#ca4ad1',
+                textColor: '#ffffff',
+                primaryColor: '#532c49',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#ca4ad1',
+                secondaryColor: '#1a1a1a',
+                tertiaryColor: '#532c49'
+            }
+        });
+    </script>
+</body>
+</html>

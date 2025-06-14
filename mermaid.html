@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gideon - Fluxograma de Arquitetura (Tema Escuro)</title>
+    <style>
+        /* Estilo geral da página */
+        body {
+            background-color: #000000; /* Cor de fundo da página */
+            font-family: sans-serif;
+        }
+
+        /* ----- CSS para aplicar ícones aos nós do Mermaid ----- */
+
+        .iconNode div {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        /* Classe genérica para ícone de banco de dados */
+        .dbIcon div {
+            background-image: url('./database-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .s3Icon div {
+            background-image: url('./aws-s3-simple-storage-service.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        .sagemakerIcon div {
+            background-image: url('./Arch_Amazon-SageMaker_32.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        /* Ícone de cache/predição (usando Redis como exemplo) */
+        .predIcon div {
+             background-image: url('./redis-original-wordmark.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        .quicksightIcon div {
+            background-image: url('./Arch_Amazon-QuickSight_32.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        /* Ícone de usuário (usando um genérico) */
+        .userIcon div {
+            background-image: url('./user-hands-svgrepo-com_f.svg');
+            background-size: 28px 28px; /* Ajuste fino para SVG */
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+        
+        /* Ícone para CloudWatch (não estava na lista, mas é um serviço de monitoramento da AWS) */
+        .monitorIcon div {
+            background-image: url('./aws-cloudwatch-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+
+        /* Ícone para Orquestração (usando Airflow como exemplo) */
+        .orchIcon div {
+            /*background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/de/AirflowLogo.png');*/
+            background-image: url('./airflow-svgrepo-com.svg');
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            padding-left: 58px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mermaid">
+        graph TD
+            %% Definição das classes para aplicar os ícones via CSS
+            classDef dbIcon,s3Icon,sagemakerIcon,predIcon,quicksightIcon,userIcon,monitorIcon,orchIcon,defaultNode height:80px,fill:#1a1a1a,stroke:#ca4ad1
+            
+            subgraph "Fontes & Usuários"
+                A["<b>A: Fontes de Dados</b><br>(CRM, ERP, DBs)"]:::dbIcon
+                J["<b>J: Usuários Finais</b><br>(Gestores, Vendas, Marketing)"]:::userIcon
+            end
+
+            subgraph "Nuvem AWS - Plataforma Gideon"
+                B["B: Amazon S3<br>(Raw Zone)"]:::s3Icon
+                C["C: Amazon S3<br>(Processed Zone)"]:::s3Icon
+                D["D: Amazon S3<br>(Curated Zone / Feature Store)"]:::s3Icon
+                E["<b>E: Treinamento de Modelos</b><br>(Amazon SageMaker)"]:::sagemakerIcon
+                F["F: Registro de Modelos<br>(SageMaker Registry)"]:::sagemakerIcon
+                G["<b>G: Endpoint de Inferência</b><br>(SageMaker)"]:::sagemakerIcon
+                H{"H: Armazenamento de Predições<br>(S3, DynamoDB, Redis)"}:::predIcon
+                I["<b>I: Dashboards Interativos</b><br>(Amazon QuickSight)"]:::quicksightIcon
+                K["<b>K: Monitoramento</b><br>(Amazon CloudWatch)"]:::monitorIcon
+                L["<b>L: Orquestração</b><br>(Airflow / Step Functions)"]:::orchIcon
+            end
+
+            %% Fluxo de Dados e ML
+            A -- "Ingestão via<br>AWS DMS / Scripts" --> B
+            B -- "ETL com<br>AWS Glue / Spark" --> C
+            C -- "Engenharia de Features" --> D
+            D -- "Dados de Treino" --> E
+            E -- "Modelo Versionado" --> F
+            F -- "Deploy do Modelo" --> G
+            D -- "Dados para Inferência" --> G
+            G -- "Salva Predições" --> H
+            H -- "Resultados Preditivos" --> I
+            C -- "Dados Consolidados" --> I
+            I -- "Visualiza Insights" --> J
+            J -- "Feedback / Novas Ações" --> E
+
+            %% Orquestração e Monitoramento
+            L -- "Orquestra" --> B
+            L -- "Orquestra" --> C
+            L -- "Orquestra" --> E
+            K -- "Monitora" --> G
+            K -- "Monitora" --> L
+    </div>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#000000',
+                
+                /* Cor de fundo do subgrafo */
+                clusterBkg: '#532c49',
+                clusterBorder: '#ca4ad1',
+
+                /* Cores de Nós */
+                nodeBorder: '#ca4ad1',
+                mainBkg: '#1a1a1a',
+
+                /* Cores de Linhas e Setas */
+                lineColor: '#ca4ad1',
+                
+                /* Cor do Texto */
+                textColor: '#ffffff',
+                
+                /* Cores específicas (não tão relevantes aqui, mas bom saber) */
+                primaryColor: '#532c49',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#ca4ad1',
+                secondaryColor: '#1a1a1a',
+                tertiaryColor: '#532c49'
+            }
+        });
+    </script>
+</body>
+</html>
