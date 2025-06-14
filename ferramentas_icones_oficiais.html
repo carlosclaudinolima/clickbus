@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tecnologias do Sistema Gideon</title>
+<style>
+        body { font-family: sans-serif; margin: 20px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+       .icon-cell svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<h2>Tecnologias do Sistema Gideon</h2>
+<table>
+<thead>
+<tr>
+<th>Ícone</th>
+<th>Tecnologia</th>
+<th>Categoria</th>
+<th>Descrição</th>
+<th>Uso no Gideon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="icon-cell"><img alt="Amazon Web Services (AWS)" height="32" src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" title="Amazon Web Services (AWS)" width="32"/></td>
+<td>Amazon Web Services (AWS)</td>
+<td>Cloud Provider</td>
+<td>Plataforma de serviços de computação em nuvem abrangente e amplamente adotada. ClickBus utiliza AWS para sua infraestrutura analítica.</td>
+<td>Infraestrutura principal para todos os componentes do sistema.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Amazon S3" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Storage/64/Arch_Amazon-Simple-Storage-Service_64.png" title="Amazon S3" width="32"/></td>
+<td>Amazon S3</td>
+<td>Armazenamento de Dados</td>
+<td>Serviço de armazenamento de objetos altamente escalável, durável e seguro. Usado pela ClickBus.</td>
+<td>Data Lake (Raw, Processed, Curated Zones), armazenamento de modelos e backups.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="AWS DMS (Database Migration Service)" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Migration-Transfer/64/Arch_AWS-Database-Migration-Service_64.png" title="AWS DMS (Database Migration Service)" width="32"/></td>
+<td>AWS DMS (Database Migration Service)</td>
+<td>Ingestão de Dados</td>
+<td>Serviço para migrar bancos de dados para a AWS de forma fácil e segura. Usado pela ClickBus.</td>
+<td>Ingestão de dados de bancos de dados relacionais dos clientes.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="AWS Glue" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Analytics/64/Arch_AWS-Glue_64.png" title="AWS Glue" width="32"/></td>
+<td>AWS Glue</td>
+<td>ETL/ELT &amp; Governança</td>
+<td>Serviço de ETL totalmente gerenciado que facilita a preparação e carga de dados. Inclui o Glue Data Catalog. Usado pela ClickBus.</td>
+<td>Processamento ETL/ELT, catalogação de dados.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="AWS Lambda" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Compute/64/Arch_AWS-Lambda_64.png" title="AWS Lambda" width="32"/></td>
+<td>AWS Lambda</td>
+<td>Computação Serverless</td>
+<td>Serviço de computação serverless que executa código em resposta a eventos. Usado pela ClickBus.</td>
+<td>Processamento de dados orientado a eventos, micro-serviços.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Apache Spark" height="32" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" title="Apache Spark" width="32"/></td>
+<td>Apache Spark</td>
+<td>Processamento de Big Data</td>
+<td>Framework de computação distribuída de código aberto para processamento de grandes volumes de dados.</td>
+<td>Transformações de dados complexas (via AWS EMR ou AWS Glue).</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Python" height="32" src="https://www.python.org/static/community_logos/python-logo.png" title="Python" width="32"/></td>
+<td>Python</td>
+<td>Linguagem de Programação</td>
+<td>Linguagem versátil e popular para desenvolvimento web, scripts, ciência de dados e machine learning.</td>
+<td>Desenvolvimento de scripts de ETL, modelos de ML, APIs.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Pandas (Python)" height="32" src="https://pandas.pydata.org/static/img/pandas_white.svg" title="Pandas (Python)" width="32"/></td>
+<td>Pandas (Python)</td>
+<td>Manipulação de Dados</td>
+<td>Biblioteca Python para manipulação e análise de dados de alto desempenho e fácil utilização.</td>
+<td>Limpeza, transformação e análise de dados em scripts Python.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Amazon SageMaker" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-AI-ML/64/Arch_Amazon-SageMaker_64.png" title="Amazon SageMaker" width="32"/></td>
+<td>Amazon SageMaker</td>
+<td>Machine Learning</td>
+<td>Plataforma completa para construir, treinar e implantar modelos de machine learning em escala.</td>
+<td>Ciclo de vida completo dos modelos preditivos (segmentação, previsão de compra, recomendação).</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Scikit-learn (Python)" height="32" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" title="Scikit-learn (Python)" width="32"/></td>
+<td>Scikit-learn (Python)</td>
+<td>Machine Learning</td>
+<td>Biblioteca Python com ferramentas simples e eficientes para mineração e análise de dados.</td>
+<td>Implementação de algoritmos de clusterização, classificação e regressão.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="TensorFlow (Python)" height="32" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" title="TensorFlow (Python)" width="32"/></td>
+<td>TensorFlow (Python)</td>
+<td>Machine Learning</td>
+<td>Plataforma de código aberto de ponta a ponta para machine learning.</td>
+<td>Desenvolvimento de modelos de deep learning (opcional, para problemas mais complexos).</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="PyTorch (Python)" height="32" src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" title="PyTorch (Python)" width="32"/></td>
+<td>PyTorch (Python)</td>
+<td>Machine Learning</td>
+<td>Biblioteca de machine learning de código aberto conhecida por sua flexibilidade e velocidade.</td>
+<td>Desenvolvimento de modelos de deep learning (opcional, alternativa ao TensorFlow).</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="XGBoost (Python)" height="32" src="https://upload.wikimedia.org/wikipedia/commons/6/69/XGBoost_logo.png" title="XGBoost (Python)" width="32"/></td>
+<td>XGBoost (Python)</td>
+<td>Machine Learning</td>
+<td>Biblioteca otimizada de gradient boosting, projetada para eficiência, flexibilidade e portabilidade.</td>
+<td>Modelos de classificação e regressão de alta performance.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Redis" height="32" src="https://upload.wikimedia.org/wikipedia/en/6/6b/Redis_Logo.svg" title="Redis" width="32"/></td>
+<td>Redis</td>
+<td>Banco de Dados em Memória</td>
+<td>Armazenamento de estrutura de dados em memória, usado como banco de dados, cache e message broker. Usado pela ClickBus.</td>
+<td>Cache de dados, armazenamento de predições para acesso rápido.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Amazon QuickSight" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Analytics/64/Arch_Amazon-QuickSight_64.png" title="Amazon QuickSight" width="32"/></td>
+<td>Amazon QuickSight</td>
+<td>Business Intelligence</td>
+<td>Serviço de BI escalável, serverless, incorporável e alimentado por ML.</td>
+<td>Criação e visualização de dashboards interativos.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="AWS Athena" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Analytics/64/Arch_Amazon-Athena_64.png" title="AWS Athena" width="32"/></td>
+<td>AWS Athena</td>
+<td>Consulta de Dados</td>
+<td>Serviço de consulta interativa que facilita a análise de dados no Amazon S3 usando SQL padrão. Usado pela ClickBus.</td>
+<td>Consultas ad-hoc sobre o Data Lake.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Apache Airflow" height="32" src="https://upload.wikimedia.org/wikipedia/commons/d/de/AirflowLogo.png" title="Apache Airflow" width="32"/></td>
+<td>Apache Airflow</td>
+<td>Orquestração de Pipeline</td>
+<td>Plataforma para criar, agendar e monitorar programaticamente fluxos de trabalho.</td>
+<td>Gerenciamento e automação dos pipelines de dados e ML.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="AWS Step Functions" height="32" src="https://raw.githubusercontent.com/aws-samples/aws-icons-for-architecture/main/Arch/Arch-Application-Integration/64/Arch_AWS-Step-Functions_64.png" title="AWS Step Functions" width="32"/></td>
+<td>AWS Step Functions</td>
+<td>Orquestração de Pipeline</td>
+<td>Serviço serverless para orquestrar fluxos de trabalho visuais para aplicações distribuídas.</td>
+<td>Alternativa ou complemento ao Airflow para orquestração na AWS.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Git" height="32" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" title="Git" width="32"/></td>
+<td>Git</td>
+<td>Controle de Versão</td>
+<td>Sistema de controle de versão distribuído, gratuito e de código aberto.</td>
+<td>Gerenciamento de código-fonte do projeto.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Jira" height="32" src="https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png" title="Jira" width="32"/></td>
+<td>Jira</td>
+<td>Gerenciamento de Projetos Ágil</td>
+<td>Ferramenta popular para rastreamento de bugs, issues e gerenciamento de projetos. ClickBus utiliza ferramentas Atlassian.</td>
+<td>Gerenciamento de tarefas, sprints e backlog do projeto.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Scrum" height="32" src="https://upload.wikimedia.org/wikipedia/commons/5/58/Scrum_process.svg" title="Scrum" width="32"/></td>
+<td>Scrum</td>
+<td>Metodologia Ágil</td>
+<td>Framework para desenvolver e manter produtos complexos, com foco em colaboração e entrega iterativa. ClickBus adota práticas ágeis.</td>
+<td>Metodologia de desenvolvimento do projeto Gideon.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Kanban" height="32" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Kanban-board-with-backlog.svg" title="Kanban" width="32"/></td>
+<td>Kanban</td>
+<td>Metodologia Ágil</td>
+<td>Método para gerenciar o fluxo de trabalho, visualizando tarefas e limitando o trabalho em progresso.</td>
+<td>Gestão visual do fluxo de desenvolvimento e tarefas.</td>
+</tr>
+<tr>
+<td class="icon-cell"><img alt="Slack" height="32" src="https://a.slack-edge.com/80588/marketing/img/icons/icon_slack_hash_colored.png" title="Slack" width="32"/></td>
+<td>Slack</td>
+<td>Comunicação de Equipe</td>
+<td>Plataforma de mensagens e colaboração para equipes. Usado pela ClickBus.</td>
+<td>Comunicação interna da equipe de desenvolvimento e stakeholders.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
